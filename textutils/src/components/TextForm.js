@@ -44,12 +44,20 @@ function TextForm(props) {
     <>
       <div className="container">
         <div className="mb-3">
-          <h1 className="my-3">Enter text to Analyze</h1>
+          <h1
+            className={`my-3 text-${props.mode == "light" ? "dark" : "light"}`}
+          >
+            Enter text to Analyze
+          </h1>
 
           <textarea
             className="form-control"
             id="my-box"
             rows="8"
+            style={{
+              backgroundColor: props.mode == "light" ? "white" : "#1c1f22",
+              color: props.mode == "light" ? "#1c1f22" : "white",
+            }}
             value={text}
             onChange={handleOnChange}
             placeholder={props.placeholderHeading}
@@ -78,17 +86,25 @@ function TextForm(props) {
         </button>
       </div>
       <div className="container">
-        <h2 className="my-3 ">Text Summary</h2>
-        <p className="mx-3">
+        <h2 className={`my-3 text-${props.mode == "light" ? "dark" : "light"}`}>
+          Text Summary
+        </h2>
+        <p className={`mx-3 text-${props.mode == "light" ? "dark" : "light"}`}>
           Your text has {text.split(" ").length} words and {text.length}{" "}
           characters.
         </p>
-        <p className="mx-3">
+        <p className={`mx-3 text-${props.mode == "light" ? "dark" : "light"}`}>
           It is an {0.008 * text.split(" ").length} minutes read.
         </p>
 
-        <h2 className="my-3 ">Preview of Text</h2>
-        <p className="mx-3 ">{text}</p>
+        <h2 className={`my-3 text-${props.mode == "light" ? "dark" : "light"}`}>
+          Preview of Text
+        </h2>
+        <p className={`mx-3 text-${props.mode == "light" ? "dark" : "light"}`}>
+          {text.length > 0
+            ? text
+            : "Enter some text above to see the preview here..."}
+        </p>
       </div>
     </>
   );
