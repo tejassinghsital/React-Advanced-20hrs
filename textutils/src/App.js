@@ -2,8 +2,13 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import Alert from "./components/Alert";
-// import About from "./components/About";
+
 import React, { useState } from "react";
+
+//using router dom in react
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+//adding about page without loading using router dom
+import About from "./components/About";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -64,24 +69,35 @@ function App() {
 
   return (
     <>
-      <Navbar
-        title="TEXTUTILS"
-        mode={mode}
-        // toggleMode={toggleMode}
-        lightToggle={lightToggle}
-        darkToggle={darkToggle}
-        blueToggle={blueToggle}
-        greenToggle={greenToggle}
-      />
-      <Alert alert={alert} />
-      <div className="container my-3">
-        <TextForm
-          placeholderHeading="Enter your Text to Analyze here"
+      <Router>
+        <Navbar
+          title="TEXTUTILS"
           mode={mode}
-          showAlert={showAlert}
+          // toggleMode={toggleMode}
+          lightToggle={lightToggle}
+          darkToggle={darkToggle}
+          blueToggle={blueToggle}
+          greenToggle={greenToggle}
         />
-        {/* <About /> */}
-      </div>
+        <Alert alert={alert} />
+        <div className="container my-3">
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <TextForm
+                  placeholderHeading="Enter your Text to Analyze here"
+                  mode={mode}
+                  showAlert={showAlert}
+                />
+              }
+            />
+
+            <Route exact path="/about" element={<About />} />
+          </Routes>
+        </div>
+      </Router>
     </>
   );
 }
