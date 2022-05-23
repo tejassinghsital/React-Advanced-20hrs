@@ -51,23 +51,23 @@ function TextForm(props) {
 
   //counting total words logic with space bug fixing
 
-  const wordCounter = (s) => {
-    s = s.replace(/(^\s*)|(\s*$)/gi, ""); //exclude  start and end white-space
-    s = s.replace(/[ ]{2,}/gi, " "); //2 or more space to 1
+  // const wordCounter = (s) => {
+  //   s = s.replace(/(^\s*)|(\s*$)/gi, ""); //exclude  start and end white-space
+  //   s = s.replace(/[ ]{2,}/gi, " "); //2 or more space to 1
 
-    s = s.replace(/\n/, "\n"); // exclude newline with a start spacing
-    // return s.split(" ").filter(function (str) {
-    //   return str != "";
-    // }).length;
-    return s.split(" ").filter(String).length; //- this can also be used
-  };
+  //   s = s.replace(/\n/, "\n"); // exclude newline with a start spacing
+  //   // return s.split(" ").filter(function (str) {
+  //   //   return str != "";
+  //   // }).length;
+  //   return s.split(" ").filter(String).length; //- this can also be used
+  // }; //USED FILTER AND REG EXPRESSION \s  BECAUSE IT TRACKS BOTH NEW LINE AND SPACES...
 
   return (
     <>
       <div className="container">
         <div className="mb-3">
           <h1
-            className={`my-3 text-${props.mode == "light" ? "dark" : "light"}`}
+            className={`my-3 text-${props.mode === "light" ? "dark" : "light"}`}
           >
             Enter text to Analyze
           </h1>
@@ -78,150 +78,151 @@ function TextForm(props) {
             rows="8"
             style={{
               backgroundColor:
-                props.mode == "light"
+                props.mode === "light"
                   ? "white"
-                  : props.mode == "dark"
+                  : props.mode === "dark"
                   ? "#1c1f22"
-                  : props.mode == "blue"
+                  : props.mode === "blue"
                   ? "#0c1e34"
                   : "#104647",
-              color: props.mode == "light" ? "#1c1f22" : "white",
+              color: props.mode === "light" ? "#1c1f22" : "white",
             }}
             value={text}
             onChange={handleOnChange}
             placeholder={props.placeholderHeading}
           ></textarea>
         </div>
-        <button
+        <button disabled={text.length===0}
           className={`btn btn-${
             props.mode === "light"
               ? "primary"
-              : props.mode == "dark"
+              : props.mode === "dark"
               ? "secondary"
               : ""
           }  bg-${
             props.mode === "green"
               ? "green"
-              : props.mode == "blue"
+              : props.mode === "blue"
               ? "blue"
               : ""
-          } mx-3`}
+          } mx-3 my-1`}
           onClick={handleUpClick}
         >
           Convert to Uppercase
         </button>
-        <button
+        <button disabled={text.length===0}
           className={`btn btn-${
             props.mode === "light"
               ? "primary"
-              : props.mode == "dark"
+              : props.mode === "dark"
               ? "secondary"
               : ""
           }  bg-${
             props.mode === "green"
               ? "green"
-              : props.mode == "blue"
+              : props.mode === "blue"
               ? "blue"
               : ""
-          } mx-3`}
+          } mx-3 my-1`}
           onClick={handleLowClick}
         >
           Convert to Lowercase
         </button>
-        <button
+        <button disabled={text.length===0}
           className={`btn btn-${
             props.mode === "light"
               ? "primary"
-              : props.mode == "dark"
+              : props.mode === "dark"
               ? "secondary"
               : ""
           }  bg-${
             props.mode === "green"
               ? "green"
-              : props.mode == "blue"
+              : props.mode === "blue"
               ? "blue"
               : ""
-          } mx-3`}
+          } mx-3 my-1`}
           onClick={handleCapClick}
         >
           Capitalize First Letter
         </button>
-        <button
+        <button disabled={text.length===0}
           className={`btn btn-${
             props.mode === "light"
               ? "primary"
-              : props.mode == "dark"
+              : props.mode === "dark"
               ? "secondary"
               : ""
           }  bg-${
             props.mode === "green"
               ? "green"
-              : props.mode == "blue"
+              : props.mode === "blue"
               ? "blue"
               : ""
-          } mx-3`}
+          } mx-3 my-1`}
           onClick={handleClearClick}
         >
           Clear Text
         </button>
 
         {/* Integrating others logic */}
-        <button
+        <button disabled={text.length===0}
           className={`btn btn-${
             props.mode === "light"
               ? "primary"
-              : props.mode == "dark"
+              : props.mode === "dark"
               ? "secondary"
               : ""
           }  bg-${
             props.mode === "green"
               ? "green"
-              : props.mode == "blue"
+              : props.mode === "blue"
               ? "blue"
               : ""
-          } mx-3`}
+          } mx-3 my-1`}
           onClick={CopyBtn}
         >
           Copy Text
         </button>
 
         <button
+        disabled={text.length===0}
           className={`btn btn-${
             props.mode === "light"
               ? "primary"
-              : props.mode == "dark"
+              : props.mode === "dark"
               ? "secondary"
               : ""
           } bg-${
             props.mode === "green"
               ? "green"
-              : props.mode == "blue"
+              : props.mode === "blue"
               ? "blue"
               : ""
-          } mx-3`}
+          } mx-3 my-1`}
           onClick={RmBtn}
         >
           Remove Extra Spaces
         </button>
       </div>
       <div className="container">
-        <h2 className={`my-3 text-${props.mode == "light" ? "dark" : "light"}`}>
+        <h2 className={`my-3 text-${props.mode === "light" ? "dark" : "light"}`}>
           Text Summary
         </h2>
-        <p className={`mx-3 text-${props.mode == "light" ? "dark" : "light"}`}>
-          Your text has {wordCounter(text)} words and {text.length} characters.
+        <p className={`mx-3 text-${props.mode === "light" ? "dark" : "light"}`}>
+           Your text has {/*{wordCounter(text)}*/ text.split(/\s+/).filter((element)=>{ return element.length!==0}).length} words and {text.length} characters. 
         </p>
-        <p className={`mx-3 text-${props.mode == "light" ? "dark" : "light"}`}>
-          It is an {0.008 * text.split(" ").length} minutes read.
+        <p className={`mx-3 text-${props.mode === "light" ? "dark" : "light"}`}>
+          It is an {0.008 * text.split(" ").filter((element)=>{ return element.length!==0}).length} minutes read.
         </p>
 
-        <h2 className={`my-3 text-${props.mode == "light" ? "dark" : "light"}`}>
+        <h2 className={`my-3 text-${props.mode === "light" ? "dark" : "light"}`}>
           Preview of Text
         </h2>
-        <p className={`mx-3 text-${props.mode == "light" ? "dark" : "light"}`}>
+        <p className={`mx-3 text-${props.mode === "light" ? "dark" : "light"}`}>
           {text.length > 0
             ? text
-            : "Enter some text above to see the preview here..."}
+            : "Nothing ot Preview"}
         </p>
       </div>
     </>

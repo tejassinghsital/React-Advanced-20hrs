@@ -1,9 +1,11 @@
 .bg-green {
   background-color: #2e7e80;
   color: white;
+  fill: white;
 }
 
 .bg-blue {
   background-color: #143d6f;
   color: white;
+  fill: white;
 }
